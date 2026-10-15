@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مواد هندسة الزراعة والحيوية</title>
+<meta name="theme-color" content="#0f6b52">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=IBM+Plex+Mono:wght@500&family=Tajawal:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/app.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<header class="bar">
+  <div class="wrap bar-in">
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="20" cy="20" r="17"/><path d="M7 27c5-4 8-4 13 0s8 4 13 0"/><path d="M7 21c5-4 8-4 13 0s8 4 13 0"/>
+        <path d="M20 15V8m0 0c-3 0-5 2-5 5 3 0 5-2 5-5zm0 0c3 0 5 2 5 5-3 0-5-2-5-5z"/>
+      </svg>
+      <div><b>مكتبة القسم</b><span>هندسة الزراعة والحيوية</span></div>
+    </div>
+    <div class="who" id="who" hidden></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <p class="eyebrow">قسم هندسة الزراعة والحيوية · المستوى الرابع</p>
+      <h1>المحاضرات والسكاشن في مكان واحد</h1>
+      <p class="lead">اختار الشعبة والمادة، وبعدها المحاضرات أو السكاشن، وافتح أو نزّل اللي محتاجه.</p>
+    </div>
+    <div class="stat" id="stat" aria-live="polite" hidden><span class="big num" id="stat-n">0</span><span class="of num" id="stat-of"></span><span class="lbl">مادة مرفوعة</span></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="adminbar" id="adminbar" hidden><div class="seg" id="ab-seg" role="tablist" aria-label="الأقسام"></div></div>
+
+  <!-- دخول وطلب انضمام -->
+  <section id="auth-view" hidden>
+    <div class="auth">
+      <div class="seg" role="tablist" aria-label="دخول أو طلب انضمام">
+        <button type="button" id="at-login" role="tab" aria-selected="true">تسجيل الدخول</button>
+        <button type="button" id="at-reg" role="tab" aria-selected="false">طلب انضمام</button>
+      </div>
+      <p class="msg" id="au-msg" role="status" hidden></p>
+
+      <form id="login-form" class="form" autocomplete="on">
+        <div class="field"><label for="l-login">الإيميل أو اسم المستخدم</label><input class="inp ltr" id="l-login" name="username" type="text" autocomplete="username" required></div>
+        <div class="field"><label for="l-pass">كلمة المرور</label><input class="inp ltr" id="l-pass" name="password" type="password" autocomplete="current-password" required></div>
+        <button class="btn" type="submit" id="l-btn">دخول</button>
+      </form>
+
+      <form id="reg-form" class="form" autocomplete="on" hidden>
+        <p class="hint">اكتب اسمك بالكامل. طلبك بيوصل للأدمن، وتقدر تدخل بعد ما يوافق عليه.</p>
+        <div class="field"><label for="r-name">الاسم بالكامل</label><input class="inp" id="r-name" name="name" type="text" maxlength="80" autocomplete="name" required></div>
+        <div class="field"><label for="r-email">الإيميل</label><input class="inp ltr" id="r-email" name="email" type="email" maxlength="120" autocomplete="email" required></div>
+        <div class="field"><label for="r-pass">كلمة المرور (8 حروف على الأقل)</label><input class="inp ltr" id="r-pass" name="new-password" type="password" minlength="8" maxlength="100" autocomplete="new-password" required></div>
+        <div class="field"><label for="r-pass2">تأكيد كلمة المرور</label><input class="inp ltr" id="r-pass2" name="new-password2" type="password" minlength="8" maxlength="100" autocomplete="new-password" required></div>
+        <button class="btn" type="submit" id="r-btn">إرسال الطلب</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- المكتبة -->
+  <section id="lib-view" hidden>
+    <div class="tabs" role="tablist" aria-label="الشعب" id="tabs"></div>
+    <section class="panel" id="panel">
+      <div class="panel-head"><h2 id="p-name"></h2><div class="en" id="p-en"></div></div>
+      <div class="subs" id="subs"></div>
+      <div class="subbar" id="subbar" hidden>
+        <div class="l"><h3 id="s-title"></h3><button class="btn ghost sm" type="button" id="s-edit" hidden>تعديل المادة</button></div>
+        <div class="seg" role="tablist" aria-label="النوع" id="kinds"></div>
+      </div>
+      <div id="notes"></div>
+      <div class="grid" id="grid" role="tabpanel"></div>
+    </section>
+  </section>
+
+  <!-- الطلبات -->
+  <section id="req-view" hidden>
+    <div class="card">
+      <div class="card-head">
+        <div><h2>طلبات الانضمام</h2><p class="hint">اقبل أو ارفض كل طلب. الطالب يشوف حالة طلبه لما يحاول يدخل.</p></div>
+        <div class="seg" id="rq-seg" role="tablist" aria-label="تصفية الطلبات"></div>
+      </div>
+      <div class="list" id="rq-list"></div>
+    </div>
+  </section>
+
+  <!-- الإعدادات -->
+  <section id="set-view" hidden>
+    <div class="cols">
+      <div class="card">
+        <h2>الإشعارات</h2>
+        <p class="hint" id="nt-state"></p>
+        <div class="row"><button class="btn" type="button" id="nt-btn">تفعيل إشعارات المتصفح</button></div>
+        <p class="hint" id="nt-ntfy"></p>
+      </div>
+      <form class="card form" id="pw-form" autocomplete="off">
+        <h2>تغيير كلمة المرور</h2>
+        <div class="field"><label for="pw-cur">كلمة المرور الحالية</label><input class="inp ltr" id="pw-cur" type="password" autocomplete="current-password" required></div>
+        <div class="field"><label for="pw-new">كلمة المرور الجديدة (10 حروف على الأقل)</label><input class="inp ltr" id="pw-new" type="password" minlength="10" maxlength="100" autocomplete="new-password" required></div>
+        <p class="err" id="pw-err" role="alert"></p>
+        <button class="btn" type="submit" id="pw-btn">حفظ كلمة المرور</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">مواد قسم هندسة الزراعة والحيوية، للاستخدام الدراسي.</footer>
+
+<!-- نافذة رفع مادة -->
+<div class="scrim" id="scrim" hidden>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-head">
+    <h2 id="m-head"></h2>
+    <div class="field"><label for="m-title">عنوان المادة</label><input class="inp" id="m-title" type="text" maxlength="120" placeholder="مثال: محاضرة 3 - مقدمة"></div>
+    <div class="field"><span class="lb">نوع المادة</span>
+      <div class="seg" id="m-seg"><button type="button" id="m-b-file" aria-selected="true">ملف</button><button type="button" id="m-b-link" aria-selected="false">رابط</button></div></div>
+    <div class="field" id="m-file-box"><label for="m-file">اختار الملف</label>
+      <input class="inp" id="m-file" type="file" accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.mp4,.webm,.mp3,.txt,.csv,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.rar">
+      <p class="hint" id="m-cur"></p>
+      <p class="hint" id="m-types"></p></div>
+    <div class="field" id="m-link-box" hidden><label for="m-link">الرابط</label>
+      <input class="inp ltr" id="m-link" type="url" placeholder="https://drive.google.com/...">
+      <p class="hint">أي رابط خارجي، مثل Google Drive أو يوتيوب.</p></div>
+    <div class="prog big" id="m-prog" hidden><i id="m-prog-i"></i></div>
+    <p class="err" id="m-err" role="alert"></p>
+    <div class="row">
+      <button class="btn" type="button" id="m-save">حفظ</button>
+      <button class="btn ghost" type="button" id="m-cancel">إلغاء</button>
+      <span class="sp"></span>
+      <button class="btn danger" type="button" id="m-del" hidden>حذف المادة</button>
+    </div>
+  </div>
+</div>
+
+<!-- نافذة المادة الدراسية -->
+<div class="scrim" id="sscrim" hidden>
+  <div class="modal" id="smodal" role="dialog" aria-modal="true" aria-labelledby="sm-head">
+    <h2 id="sm-head"></h2>
+    <div class="field"><label for="sm-name">اسم المادة</label><input class="inp" id="sm-name" type="text" maxlength="90" placeholder="مثال: ميكانيكا التربة"></div>
+    <p class="err" id="sm-err" role="alert"></p>
+    <div class="row">
+      <button class="btn" type="button" id="sm-save">حفظ</button>
+      <button class="btn ghost" type="button" id="sm-cancel">إلغاء</button>
+      <span class="sp"></span>
+      <button class="btn danger" type="button" id="sm-del" hidden>حذف المادة</button>
+    </div>
+  </div>
+</div>
+
+<!-- نافذة سبب الرفض -->
+<div class="scrim" id="rscrim" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rj-head">
+    <h2 id="rj-head">رفض الطلب</h2>
+    <p class="hint" id="rj-who"></p>
+    <div class="field"><label for="rj-reason">سبب الرفض (اختياري، بيظهر للطالب)</label><input class="inp" id="rj-reason" type="text" maxlength="200"></div>
+    <div class="row">
+      <button class="btn danger" type="button" id="rj-ok">تأكيد الرفض</button>
+      <button class="btn ghost" type="button" id="rj-cancel">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-t"></span></div>
+<script src="/app.js"></script>
+</body>
+</html>
