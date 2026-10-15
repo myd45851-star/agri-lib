@@ -234,3 +234,69 @@
             const user = document.getElementById('username').value.trim();
             const pass = document.getElementById('password').value.trim();
             const
+                <script>
+    function showRegister() {
+        document.getElementById('login-card').classList.add('hidden');
+        document.getElementById('register-card').classList.remove('hidden');
+    }
+
+    function showLogin() {
+        document.getElementById('register-card').classList.add('hidden');
+        document.getElementById('login-card').classList.remove('hidden');
+    }
+
+    // التحقق من تسجيل الدخول
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value.trim().toLowerCase();
+        const pass = document.getElementById('password').value;
+        const alertBox = document.getElementById('alert-msg');
+
+        // اسم المستخدم الافتراضي للأدمن
+        if (user === 'admin') {
+            // يمكنك تعديل كلمة المرور هنا لو أردت، أو تركها تقبل أي كلمة مرور مؤقتاً لحين الدخول
+            alertBox.className = 'alert-box';
+            alertBox.style.backgroundColor = '#e6f7ff';
+            alertBox.style.borderColor = '#91d5ff';
+            alertBox.innerText = 'تم تسجيل الدخول بنجاح! جاري التوجيه...';
+            alertBox.classList.remove('hidden');
+            
+            localStorage.setItem('currentUser', 'admin');
+            localStorage.setItem('role', 'admin');
+            
+            setTimeout(() => {
+                // إذا لم تقم بإنشاء صفحة admin.html بعد، سنقوم بتوجيهك أو إظهار لوحة التحكم
+                alertUri();
+            }, 1000);
+        } else {
+            alertBox.className = 'alert-box';
+            alertBox.style.backgroundColor = '#fffbe6';
+            alertBox.style.borderColor = '#ffe58f';
+            alertBox.innerText = 'بيانات الدخول غير صحيحة أو الحساب بانتظار الموافقة.';
+            alertBox.classList.remove('hidden');
+        }
+    });
+
+    function alertUri() {
+        // مؤقتاً لتظهر لك رسالة النجاح حتى ننشئ صفحة التحكم الخاصة بالأدمن
+        document.body.innerHTML = `
+            <div style="text-align:center; padding:50px; font-family:'Cairo',sans-serif;">
+                <h2 style="color: #2e7d32;">أهلاً بك يا أدمن في لوحة التحكم!</h2>
+                <p>تم تسجيل الدخول بنجاح. هل تريد أن ننشئ صفحة لوحة التحكم (admin.html) لترفع فيها الملفات وتدير الطلاب؟</p>
+                <button onclick="location.reload()" style="padding:10px 20px; background:#2e7d32; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">تسجيل الخروج</button>
+            </div>
+        `;
+    }
+
+    // كود إرسال طلب الانضمام
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const alertBox = document.getElementById('reg-alert');
+        alertBox.className = 'alert-box';
+        alertBox.style.backgroundColor = '#f6ffed';
+        alertBox.style.borderColor = '#b7eb8f';
+        alertBox.innerText = 'تم إرسال طلب الانضمام بنجاح! بانتظار موافقة الأدمن.';
+        alertBox.classList.remove('hidden');
+        setTimeout(showLogin, 2500);
+    });
+</script>
