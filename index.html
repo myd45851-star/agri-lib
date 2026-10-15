@@ -3,161 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتبة قسم هندسة الزراعة والحيوية</title>
+    <title>مكتبة هندسة الزراعة والحيوية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2e7d32; --secondary: #4caf50; --bg: #f4f6f8; --text: #333; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; direction: rtl; }
-        header { background-color: var(--primary); color: white; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .container { max-width: 900px; margin: 30px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        h2 { color: var(--primary); text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        button { background-color: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Cairo', sans-serif; font-weight: bold; width: 100%; font-size: 16px; margin-top: 10px; }
-        button:hover { background-color: var(--secondary); }
-        .hidden { display: none !important; }
-        .alert { padding: 10px; background-color: #fffae6; border-right: 4px solid #ffc107; margin-bottom: 15px; border-radius: 4px; }
-        .table-container { overflow-x: auto; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
-        th { background-color: var(--primary); color: white; }
-        .nav-links { text-align: center; margin-top: 15px; }
-        .nav-links a { color: var(--primary); text-decoration: none; font-weight: bold; cursor: pointer; }
-        .nav-links a:hover { text-decoration: underline; }
+        :root {
+            --primary: #2e7d32;
+            --primary-hover: #1b5e20;
+            --bg: #f4f6f8;
+            --text: #333;
+            --card-bg: #ffffff;
+            --alert-bg: #fffbe6;
+            --alert-border: #ffe58f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            direction: rtl;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            padding: 35px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .alert-box {
+            background-color: var(--alert-bg);
+            border: 1px solid var(--alert-border);
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #595959;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #434343;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .link-toggle {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .link-toggle a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .link-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>مكتبة هندسة الزراعة والحيوية</h1>
-        <p>محاضرات وسكاشن القسم - جامعة بنha</p>
+        <p>محاضرات وسكاشن القسم - جامعة بنها</p>
     </header>
 
-    <div class="container" id="app-container">
-        <!-- قسم تسجيل الدخول -->
-        <div id="login-section">
+    <div class="main-container">
+        <!-- كارت تسجيل الدخول الأصلي -->
+        <div class="card" id="login-card">
             <h2>تسجيل الدخول</h2>
-            <div id="login-alert" class="alert hidden"></div>
+            
+            <div id="alert-msg" class="alert-box hidden"></div>
+
             <form id="login-form">
                 <div class="form-group">
                     <label>البريد الإلكتروني / اسم المستخدم</label>
-                    <input type="text" id="login-user" required placeholder="example@gmail.com">
+                    <input type="text" id="username" required>
                 </div>
+
                 <div class="form-group">
                     <label>كلمة المرور</label>
-                    <input type="password" id="login-pass" required placeholder="********">
+                    <input type="password" id="password" required>
                 </div>
-                <button type="submit">دخول</button>
+
+                <button type="submit" class="btn-submit">دخول</button>
             </form>
-            <div class="nav-links">
-                <p>ليس لديك حساب؟ <a onclick="showRegister()">سجل الآن طلب انضمام</a></p>
+
+            <div class="link-toggle">
+                <span>ليس لديك حساب؟ </span><a onclick="showRegister()">سجل الآن طلب انضمام</a>
             </div>
         </div>
 
-        <!-- قسم التسجيل (طلب انضمام) -->
-        <div id="register-section" class="hidden">
+        <!-- كارت طلب انضمام طالب جديد -->
+        <div class="card hidden" id="register-card">
             <h2>طلب انضمام طالب جديد</h2>
-            <div id="reg-alert" class="alert hidden"></div>
-            <form id="reg-form">
+
+            <div id="reg-alert" class="alert-box hidden"></div>
+
+            <form id="register-form">
                 <div class="form-group">
                     <label>الاسم الثلاثي</label>
-                    <input type="text" id="reg-name" required placeholder="أدخل اسمك الثلاثي">
+                    <input type="text" id="reg-name" required>
                 </div>
+
                 <div class="form-group">
                     <label>البريد الإلكتروني</label>
-                    <input type="email" id="reg-email" required placeholder="example@gmail.com">
+                    <input type="email" id="reg-email" required>
                 </div>
-                <div class="form-group">
-                    <label>كلمة المرور (8 أحرف على الأقل)</label>
-                    <input type="password" id="reg-pass" required placeholder="********">
-                </div>
-                <button type="submit">إرسال طلب الانضمام</button>
-            </form>
-            <div class="nav-links">
-                <p>لديك حساب بالفعل؟ <a onclick="showLogin()">تسجيل الدخول</a></p>
-            </div>
-        </div>
 
-        <!-- قسم المكتبة والمحتوى (يظهر بعد تسجيل الدخول الناجح) -->
-        <div id="library-section" class="hidden">
-            <h2>مرحباً بك في المكتبة الرقمية</h2>
-            <p id="welcome-user" style="text-align: center; font-weight: bold;"></p>
-            <button onclick="logout()" style="background-color: #d32f2f; width: auto; padding: 5px 15px; margin-bottom: 20px;">تسجيل الخروج</button>
-            
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>المادة الدراسية</th>
-                            <th>نوع المحتوى</th>
-                            <th>الملفات المتاحة</th>
-                        </tr>
-                    </thead>
-                    <tbody id="library-content">
-                        <!-- يتم تعبئة الجدول برمجياً -->
-                        <tr>
-                            <td colspan="3">لا توجد مواد مرفوعة حالياً. سيتم إضافة المحاضرات قريباً.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="reg-password" required>
+                </div>
+
+                <button type="submit" class="btn-submit">إرسال طلب الانضمام</button>
+            </form>
+
+            <div class="link-toggle">
+                <span>لديك حساب بالفعل؟ </span><a onclick="showLogin()">تسجيل الدخول</a>
             </div>
         </div>
     </div>
 
     <script>
-        // دوال التنقل البسيطة بين الواجهات
         function showRegister() {
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('register-section').classList.remove('hidden');
+            document.getElementById('login-card').classList.add('hidden');
+            document.getElementById('register-card').classList.remove('hidden');
         }
 
         function showLogin() {
-            document.getElementById('register-section').classList.add('hidden');
-            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('register-card').classList.add('hidden');
+            document.getElementById('login-card').classList.remove('hidden');
         }
 
-        function logout() {
-            localStorage.removeItem('currentUser');
-            document.getElementById('library-section').classList.add('hidden');
-            document.getElementById('login-section').classList.remove('hidden');
-        }
-
-        // التحقق المبدئي عند فتح الصفحة
-        window.onload = function() {
-            const user = localStorage.getItem('currentUser');
-            if (user) {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('library-section').classList.remove('hidden');
-                document.getElementById('welcome-user').innerText = `أهلاً بك، ${user}`;
-            }
-        };
-
-        // محاكاة تسجيل الدخول البسيط
+        // كود تسجيل الدخول للأدمن والطلاب
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const email = document.getElementById('login-user').value;
-            // حساب الأدمن الافتراضي أو المستخدمين المسجلين محلياً
-            if (email === 'admin@agri.com' || email.includes('@')) {
-                localStorage.setItem('currentUser', email);
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('library-section').classList.remove('hidden');
-                document.getElementById('welcome-user').innerText = `أهلاً بك، ${email}`;
-            } else {
-                const alertBox = document.getElementById('login-alert');
-                alertBox.innerText = 'بيانات الدخول غير صحيحة أو بانتظار موافقة الأدمن.';
-                alertBox.classList.remove('hidden');
-            }
-        });
-
-        // محاكاة إرسال طلب التسجيل
-        document.getElementById('reg-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const alertBox = document.getElementById('reg-alert');
-            alertBox.innerText = 'تم إرسال طلبك بنجاح! يجدر بالأنظار انتظار موافقة الأدمن لتفعيل حسابك.';
-            alertBox.classList.remove('hidden');
-            setTimeout(showLogin, 3000);
-        });
-    </script>
-</body>
-</html>
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const
